@@ -22,14 +22,23 @@ class UrlController extends Controller
     // If not, create and return a new ShortURL
     public function create_url(Request $request) 
     {
-        
-        $verify_url = $this->check_url_exists($request->url);
-        if($verify_url) return url($verify_url);
+        // Original URL provided by the user
+        $original_user_url = $request->url;
 
+        // Sanitize URL and verify if it respects the URL Standards
+        $sanitized_url = filter_var($original_user_url, FILTER_SANITIZE_URL);
+        if(filter_var($sanitized_url, FILTER_VALIDATE_URL) === false)
+            return json_encode('Invalid URL');
+
+        $existing_key = $this->check_url_exists($sanitized_url);
+        if($existing_key) 
+            return url($existing_key);
+
+        // Generate a unique key for the URL
         $key = $this->generate_unique_key();
-        Url::create(['url' => $request->url,
-                     'key' => $key,
-                     'created_at' => Carbon::now() ]);
+        Url::create([ 'url'          => $sanitized_url,
+                      'key'          => $key,
+                      'created_at'   => Carbon::now() ]);
 
         return url($key);
     }
@@ -54,10 +63,11 @@ class UrlController extends Controller
     private function generate_unique_key()
     {
         $length = 6;
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        $key = substr(str_shuffle($characters), -6);
+        $seed = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        $key = substr(str_shuffle($seed), -6);
 
-        if(Url::where('key', $key)->count()) $this->generate_unique_key();
+        if(Url::where('key', $key)->count()) 
+            $this->generate_unique_key();
 
         return $key;
     }
