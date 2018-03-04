@@ -9,12 +9,13 @@ use Carbon\Carbon;
 class UrlController extends Controller
 {
     // Self Explanatory
-    public function index($key = null)
+    // Redirect the user to his Original URL from the provided ShortURL
+    public function shortener_entrypoint($key = null)
     {
         $decoded = $this->decode_key($key);
         strpos($decoded, 'http') > -1 ? $decoded : ($decoded = 'http://'.$decoded);
 
-        return $decoded ? redirect($decoded) : json_encode('Invalid URL');
+        return $decoded ? redirect($decoded) : 'Invalid URL';
     }
 
     // Verify if the URL is already in the DB
@@ -23,12 +24,17 @@ class UrlController extends Controller
     public function create_url(Request $request) 
     {
         // Original URL provided by the user
-        $original_user_url = $request->url;
+        $original_url = $request->url;
 
-        // Sanitize URL and verify if it respects the URL Standards
-        $sanitized_url = filter_var($original_user_url, FILTER_SANITIZE_URL);
+        // Remove end from url if it exists to prevent duplicates
+        $unslashed_url = (substr($original_url, -1) == '/') ? substr($original_url, 0, -1) : $original_url ;
+
+        // Sanitize URL
+        $sanitized_url = filter_var($unslashed_url, FILTER_SANITIZE_URL);
+
+        // Verify if URL respects the URL Standards
         if(filter_var($sanitized_url, FILTER_VALIDATE_URL) === false)
-            return json_encode('Invalid URL');
+            return 'Invalid URL';
 
         $existing_key = $this->check_url_exists($sanitized_url);
         if($existing_key) 

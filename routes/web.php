@@ -11,6 +11,9 @@
 |
 */
 
-$router->get('/[{key}]', ['as' => 'index', 'uses' => 'UrlController@index']);
+// Frontend Entrupoint
+$router->get('/', ['as' => 'index', 'uses' => 'FrontendController@index']);
+// End
 
+$router->get('/{key}', ['as' => 'shortener_entrypoint', 'uses' => 'UrlController@shortener_entrypoint']);
 $router->post('/create_url', ['as' => 'create_url', 'uses' => 'UrlController@create_url']);
