@@ -17,3 +17,4 @@ $router->get('/', ['as' => 'index', 'uses' => 'FrontendController@index']);
 
 $router->get('/{key}', ['as' => 'shortener_entrypoint', 'uses' => 'UrlController@shortener_entrypoint']);
 $router->post('/create_url', ['as' => 'create_url', 'uses' => 'UrlController@create_url']);
+$router->post('/expand_url', ['as' => 'expand_url', 'uses' => 'UrlController@expand_url']);

@@ -22,6 +22,7 @@ class UrlController extends Controller
     // Verify if the URL is already in the DB
     // If it is, return the ShortURL
     // If not, create and return a new ShortURL
+    // API and Frontend Usage
     public function create_url(Request $request) 
     {
         // Original URL provided by the user
@@ -48,6 +49,25 @@ class UrlController extends Controller
                       'created_at'   => Carbon::now() ]);
 
         return url($key);
+    }
+
+    // Return the Original URL from the provided ShortURL
+    // API Usage
+    public function expand_url(Request $request)
+    {
+        // Short URL provided by the user
+        $short_url = $request->url;
+
+        // Strip the current URL from the provided Short URL
+        $current_url = $request->server("SERVER_NAME").'/';
+        $stripped_url = explode($current_url, $short_url);
+
+        // Get key from provided URL
+        $key = $stripped_url[1];
+
+        $original_url = $this->decode_key($key);
+
+        return $original_url ?: 'Invalid URL';
     }
 
     // Check for the key, return original URL
