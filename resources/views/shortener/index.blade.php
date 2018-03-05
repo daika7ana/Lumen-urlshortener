@@ -11,9 +11,9 @@
 @section('content')
 
     <form class="url-form">
-	  <img src="/images/shorten.png" class="mb-4" height="100px">
+	  <img src="/images/shorten.png" class="mb-4 img-fluid">
       <label for="url" class="sr-only">What URL do you want shortened?</label>
-      <input type="text" id="url" name="url" class="form-control mb-3" placeholder="What URL do you want shortened?" required autofocus>
+      <input type="url" id="url" name="url" class="form-control mb-3" placeholder="What URL do you want shortened?" required autofocus>
       <div style="display: none;" class="ajax-response mb-3"></div>
       <button class="btn btn-lg btn-dark submitBtn" type="submit">Shorten me!</button>
     </form>

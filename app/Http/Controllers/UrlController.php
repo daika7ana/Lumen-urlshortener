@@ -14,8 +14,8 @@ class UrlController extends Controller
     {
         $decoded = $this->decode_key($key);
 
-        $decoded ? ( strpos($decoded, 'http') > -1 ? $decoded : ( $decoded = 'http://'.$decoded ) ) : null;
-
+        $decoded ? ( stripos($decoded, 'http') > -1 ? $decoded : ( $decoded = 'http://'.$decoded ) ) : null;
+        
         return $decoded ? redirect($decoded) : abort(404, 'Invalid URL');
     }
 
@@ -58,7 +58,7 @@ class UrlController extends Controller
         // Short URL provided by the user
         $short_url = $request->url;
 
-        if ( !strpos($short_url, $request->server("SERVER_NAME") ))
+        if ( !stripos($short_url, $request->server("SERVER_NAME") ))
             return 'Invalid URL';
 
         // Strip the current URL from the provided Short URL
