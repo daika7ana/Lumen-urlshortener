@@ -13,9 +13,10 @@ class UrlController extends Controller
     public function shortener_entrypoint($key = null)
     {
         $decoded = $this->decode_key($key);
-        strpos($decoded, 'http') > -1 ? $decoded : ($decoded = 'http://'.$decoded);
 
-        return $decoded ? redirect($decoded) : 'Invalid URL';
+        $decoded ? ( strpos($decoded, 'http') > -1 ? $decoded : ( $decoded = 'http://'.$decoded ) ) : null;
+
+        return $decoded ? redirect($decoded) : abort(404, 'Invalid URL');
     }
 
     // Verify if the URL is already in the DB
@@ -36,7 +37,7 @@ class UrlController extends Controller
         if(filter_var($sanitized_url, FILTER_VALIDATE_URL) === false)
             return 'Invalid URL';
 
-        $existing_key = $this->check_url_exists($sanitized_url);
+        $existing_key = $this->url_has_key($sanitized_url);
         if($existing_key) 
             return url($existing_key);
 
@@ -58,7 +59,7 @@ class UrlController extends Controller
     }
 
     // Lookup the URL provided, return the key if found else bool(false)
-    private function check_url_exists($url) 
+    private function url_has_key($url) 
     {
         $existing_url = Url::where('url', $url)->first();
 
@@ -69,8 +70,7 @@ class UrlController extends Controller
     private function generate_unique_key()
     {
         $length = 6;
-        $seed = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        $key = substr(str_shuffle($seed), -6);
+        $key = str_random($length);
 
         if(Url::where('key', $key)->count()) 
             $this->generate_unique_key();
