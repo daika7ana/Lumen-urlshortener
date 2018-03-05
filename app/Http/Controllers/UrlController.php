@@ -58,6 +58,9 @@ class UrlController extends Controller
         // Short URL provided by the user
         $short_url = $request->url;
 
+        if ( !strpos($short_url, $request->server("SERVER_NAME") ))
+            return 'Invalid URL';
+
         // Strip the current URL from the provided Short URL
         $current_url = $request->server("SERVER_NAME").'/';
         $stripped_url = explode($current_url, $short_url);
