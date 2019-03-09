@@ -15,9 +15,13 @@ class CreateUrldata extends Migration
     {
         Schema::create('urls', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('url')->unique();
-            $table->string('key', 128)->unique();
+            $table->text('url');
+            $table->string('key', 128)->collation('utf8_bin');
             $table->dateTime('created_at');
+
+            // Indexs
+            $table->unique([ DB::raw('url(500)') ]);
+            $table->unique('key');
         });
     }
 

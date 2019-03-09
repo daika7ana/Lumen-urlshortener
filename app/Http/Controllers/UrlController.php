@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Url;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class UrlController extends Controller
 {
     // Self Explanatory
     // Redirect the user to his Original URL from the provided ShortURL
-    public function shortener_entrypoint($key = null)
+    public function shortener_entrypoint($key = null): RedirectResponse
     {
         $decoded = $this->decode_key($key);
 
@@ -23,7 +24,7 @@ class UrlController extends Controller
     // If it is, return the ShortURL
     // If not, create and return a new ShortURL
     // API and Frontend Usage
-    public function create_url(Request $request) 
+    public function create_url(Request $request): String
     {
         // Original URL provided by the user
         $original_url = $request->url;
@@ -53,7 +54,7 @@ class UrlController extends Controller
 
     // Return the Original URL from the provided ShortURL
     // API Usage
-    public function expand_url(Request $request)
+    public function expand_url(Request $request): String
     {
         // Short URL provided by the user
         $short_url = $request->url;
@@ -74,7 +75,7 @@ class UrlController extends Controller
     }
 
     // Check for the key, return original URL
-    private function decode_key($key)
+    private function decode_key($key): Mixed
     {
         $found_key = Url::where('key', $key)->first();
 
@@ -82,7 +83,7 @@ class UrlController extends Controller
     }
 
     // Lookup the URL provided, return the key if found else bool(false)
-    private function url_has_key($url) 
+    private function url_has_key($url): Mixed
     {
         $existing_url = Url::where('url', $url)->first();
 
@@ -90,7 +91,7 @@ class UrlController extends Controller
     }
 
     // Generate a new unique Key
-    private function generate_unique_key()
+    private function generate_unique_key(): String
     {
         $length = 6;
         $key = str_random($length);
