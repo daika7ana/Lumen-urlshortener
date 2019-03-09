@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <title>URL Shortener</title>
+    <title>Sqiz.me URL Shortener</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
     
     <!-- Bootstrap Core Css -->
