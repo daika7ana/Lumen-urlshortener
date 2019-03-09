@@ -75,7 +75,7 @@ class UrlController extends Controller
     }
 
     // Check for the key, return original URL
-    private function decode_key($key): Mixed
+    private function decode_key($key)
     {
         $found_key = Url::where('key', $key)->first();
 
@@ -83,7 +83,7 @@ class UrlController extends Controller
     }
 
     // Lookup the URL provided, return the key if found else bool(false)
-    private function url_has_key($url): Mixed
+    private function url_has_key($url)
     {
         $existing_url = Url::where('url', $url)->first();
 
