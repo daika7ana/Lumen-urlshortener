@@ -1,4 +1,4 @@
-## Official Documentation
+## Details
 
 The codebase for my open source project https://sqiz.me/, which is an URL Shortener service built on Lumen.
 

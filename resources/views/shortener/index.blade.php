@@ -3,7 +3,8 @@
 
 @section('header') 
 
-    <link rel="stylesheet" href="/css/custom.css">  
+    <link rel="preload" href="/css/custom.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/custom.min.css"></noscript>
 
 @endsection
 
@@ -11,25 +12,31 @@
 @section('content')
 
     <form class="url-form">
-	  <img src="/images/shorten.png" class="mb-3 img-fluid">
-      <label for="url" class="sr-only">What URL do you want shortened?</label>
-      <input type="url" id="url" name="url" class="form-control mb-3" placeholder="What URL do you want shortened?" required autofocus>
-      <div style="display: none;" class="ajax-response mb-4"></div>
-      <button class="btn btn-lg btn-dark submitBtn" type="submit">Go for it!</button>
+        <img src="/images/shorten.png" class="mb-4 img-fluid">
+
+        <label for="url" class="sr-only">What URL do you want shortened?</label>
+        <input id="url" type="url" name="url" class="form-control mb-3" placeholder="What URL do you want shortened?" required autofocus autocomplete="off">
+        <div id="ajax-response" style="display: none;" class="mb-4"></div>
+        
+        <button id="formSubmit" type="submit" class="btn btn-lg btn-dark btn-block">Go for it!</button>
     </form>
+
+    <div class="additionalInfo">
+        Open Source Project repository found on <a href="https://github.com/daika7ana/lumen-urlshortener" target="_blank"> GitHub</a>.
+    </div>
 
 @endsection
 
 
 @section('footer-plugins')  
 
-	<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous" defer></script>
 
 @endsection
 
 
 @section('footer-scripts')
 
-	<script type="text/javascript" src="/js/custom.js"></script>
+	<script type="text/javascript" src="/js/custom.min.js" defer></script>
 
 @endsection
