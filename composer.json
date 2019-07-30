@@ -1,5 +1,5 @@
 {
-    "name": "Sqiz.me",
+    "name": "daika7ana/sqiz.me",
     "description": "My own personal take on a URL shortener.",
     "keywords": ["framework", "laravel", "lumen"],
     "license": "MIT",
