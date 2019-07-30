@@ -15,7 +15,7 @@
         <img src="/images/shorten.png" class="mb-4 img-fluid">
 
         <label for="url" class="sr-only">What URL do you want shortened?</label>
-        <input id="url" type="url" name="url" class="form-control mb-3" placeholder="What URL do you want shortened?" required autofocus autocomplete="off">
+        <input id="url" type="url" name="url" class="form-control mb-3" placeholder="What URL do you want shortened?" required autocomplete="off">
         <div id="ajax-response" style="display: none;" class="mb-4"></div>
         
         <button id="formSubmit" type="submit" class="btn btn-lg btn-dark btn-block">Go for it!</button>
