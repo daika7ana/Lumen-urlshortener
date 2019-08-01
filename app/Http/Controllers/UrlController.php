@@ -59,7 +59,7 @@ class UrlController extends Controller
 
     // Return the Original URL from the provided ShortURL
     // API Usage
-    public function expand_url(Request $request)
+    public function expand_url(Request $request): array
     {
         $short_url = $request->url;
         $domain = $request->server("SERVER_NAME");

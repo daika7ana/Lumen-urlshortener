@@ -11,9 +11,7 @@
 |
 */
 
-// Frontend Entrupoint
 $router->get('/', ['as' => 'index', 'uses' => 'FrontendController@index']);
-// End
 
 $router->get('/{key}', ['as' => 'redirect_url', 'uses' => 'UrlController@redirect_url']);
 $router->post('/create_url', ['as' => 'create_url', 'uses' => 'UrlController@create_url']);

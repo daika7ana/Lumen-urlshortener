@@ -11,7 +11,9 @@
 @section('content')
 
     <div class="url-form">
-		<h1>Invalid URL</h1>
+        <img src="/images/shorten.png" class="mb-4 img-fluid">
+		<h1 class="mb-0">Oops!</h1>
+		<h2 class="mb-4">Something's wrong here...</h2>
 		<h4>Redirecting back to main website in <br /> <span id="countdown">5</span> seconds.</h4>
     </div>
 
@@ -26,12 +28,13 @@
 @section('footer-scripts')
 
 	<script type="text/javascript">
-		$(function() {
+		jQuery(function($) {
 		    let timeleft = $('#countdown').text(),
-		    	downloadTimer = setInterval(function() {
+		    	redirectTimer = setInterval(function() {
 					timeleft--;
 					$('#countdown').text(timeleft);
-					if(timeleft <= 0) location.href = window.location.origin;
+					if(timeleft <= 0) 
+						location.href = window.location.origin;
 		    }, 1000);
 		});
 	</script>
