@@ -1,13 +1,11 @@
 @extends('layouts.app')
 
-
 @section('header') 
 
     <link rel="preload" href="/css/custom.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/css/custom.min.css"></noscript>
 
 @endsection
-
 
 @section('content')
 
@@ -27,13 +25,11 @@
 
 @endsection
 
-
 @section('footer-plugins')  
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous" defer></script>
 
 @endsection
-
 
 @section('footer-scripts')
 

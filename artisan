@@ -32,4 +32,8 @@ $kernel = $app->make(
     'Illuminate\Contracts\Console\Kernel'
 );
 
+if(class_exists('Laravel\Tinker\TinkerServiceProvider')) {
+    $app->register('Laravel\Tinker\TinkerServiceProvider');
+}
+
 exit($kernel->handle(new ArgvInput, new ConsoleOutput));

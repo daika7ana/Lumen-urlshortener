@@ -2,97 +2,98 @@
 
 namespace App\Http\Controllers;
 
-use App\Url;
+use App\Url as URL;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class UrlController extends Controller
 {
-    // Self Explanatory
     // Redirect the user to his Original URL from the provided ShortURL
-    public function shortener_entrypoint(String $key): RedirectResponse
+    public function redirect_url(String $key): RedirectResponse
     {
-        $decoded = $this->decode_key($key);
+        $original_url = URL::fetch_url($key);
 
-        $decoded = $decoded ? ( stripos($decoded, 'http') > -1 ? $decoded : ("http://{$decoded}" ) ) : null;
-        
-        return $decoded ? redirect($decoded, 301) : abort(404, 'Invalid URL');
+        $original_url = $original_url && !parse_url($original_url, PHP_URL_SCHEME) ? "http://{$original_url}" : $original_url;
+
+        return $original_url ? redirect($original_url) : abort(404, 'Invalid URL');
     }
 
     // Verify if the URL is already in the DB
-    // If it is, return the ShortURL
+    // If it is, return the ShortURL and Associated key
     // If not, create and return a new ShortURL
     // API and Frontend Usage
-    public function create_url(Request $request): String
+    public function create_url(Request $request): array
     {
         // Original URL provided by the user
         $original_url = $request->url;
-
-        // Remove end from url if it exists to prevent duplicates
-        $unslashed_url = (substr($original_url, -1) == '/') ? substr($original_url, 0, -1) : $original_url;
-
-        // Sanitize URL
-        $sanitized_url = filter_var($unslashed_url, FILTER_SANITIZE_URL);
+        $parsed_url = parse_url($original_url);
 
         // Verify if URL respects the URL Standards
-        if(false === filter_var($sanitized_url, FILTER_VALIDATE_URL))
-            return 'Invalid URL';
+        if (false === $parsed_url)
+            return ['error_msg' => 'The provided URL is invalid.'];
 
-        if($existing_key = $this->url_has_key($sanitized_url)) 
-            return url($existing_key);
+        if ($request->server("SERVER_NAME") === $parsed_url['host'])
+            return ['error_msg' => 'This URL is already shortened.'];
+
+        if ($existing_key = URL::fetch_key($original_url))
+            return [
+                'url' => url($existing_key),
+                'key' => $existing_key
+            ];
 
         // Generate a unique key for the URL
-        $key = $this->generate_unique_key();
-        Url::create([ 'url'          => $sanitized_url,
-                      'key'          => $key,
-                      'created_at'   => Carbon::now() ]);
+        $key = URL::generate_unique_key();
 
-        return url($key);
+        URL::create([
+            'url'          => $original_url,
+            'key'          => $key,
+            'created_at'   => Carbon::now()
+        ]);
+
+        return [
+            'url' => url($key),
+            'key' => $key
+        ];
     }
 
     // Return the Original URL from the provided ShortURL
     // API Usage
-    public function expand_url(Request $request): String
+    public function expand_url(Request $request)
     {
-        // Short URL provided by the user
         $short_url = $request->url;
         $domain = $request->server("SERVER_NAME");
 
-        if ( !stripos($short_url, $domain ))
-            return 'Invalid URL';
+        if (!stripos($short_url, $domain))
+            return ['error_msg' => 'The provided URL does not belong to this domain.'];
 
-        // Strip the domain from the provided Short URL
-        // to only obtain the key
-        $current_url = "{$domain}/";
-        $stripped_url = explode($current_url, $short_url);
+        $key = $this->grab_url_key($short_url, $domain);
 
-        // Get key from provided URL
-        $key = $stripped_url[1];
-
-        return $this->decode_key($key) ?: 'Invalid URL';
+        if ($original_url = URL::fetch_url($key)) {
+            return [
+                'url' => $original_url,
+                'key' => $key
+            ];
+        } else {
+            return ['error_msg' => 'The provided key was not found.'];
+        }
     }
 
-    // Check for the key, return original URL
-    private function decode_key($key)
+    // Strip the domain from the provided Short URL
+    // to only obtain the key
+    // Includes a fallback method
+    private function grab_url_key($url, $domain): ?string
     {
-        return ( $found_key = Url::where('key', $key)->first() ) ?
-                 $found_key->url : false;
-    }
+        $url_path = parse_url($url, PHP_URL_PATH);
+        $key = $url_path ? substr($url_path, 1) : null;
 
-    // Lookup the URL provided, return the key if found else bool(false)
-    private function url_has_key($url)
-    {
-        return ( $existing_url = Url::where('url', $url)->first() ) ? 
-                 $existing_url->key : false;
-    }
+        // Fallback
+        if (!$key) {
+            $current_url = "{$domain}/";
+            $exploded_url = explode($current_url, $url);
+            $key = $exploded_url[1] ?? null;
+        }
 
-    // Generate a new unique Key
-    private function generate_unique_key($length = 6): String
-    {
-        $key = str_random($length);
-
-        return Url::where('key', $key)->count() ? 
-                $this->generate_unique_key() : $key;
+        return $key;
     }
 }

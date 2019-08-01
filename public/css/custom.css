@@ -61,6 +61,15 @@ body {
     color: #6c757d;
 }
 
+#ajax-response {
+	min-height: 46px;
+}
+
+#ajax-response .h3 {
+	line-height: unset;
+	margin-bottom: 0;
+}
+
 @media only screen and (max-width: 800px) {
 	.url-form {
 		margin-top: -30%;
