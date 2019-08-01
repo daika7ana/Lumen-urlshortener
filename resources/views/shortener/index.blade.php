@@ -2,8 +2,8 @@
 
 @section('header') 
 
-    <link rel="preload" href="/css/custom.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/css/custom.min.css"></noscript>
+    <link rel="preload" href="/css/custom.min.css?v=1.0.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/custom.min.css?v=1.0.0"></noscript>
 
 @endsection
 
@@ -33,6 +33,6 @@
 
 @section('footer-scripts')
 
-	<script type="text/javascript" src="/js/custom.min.js" defer></script>
+	<script type="text/javascript" src="/js/custom.min.js?v=1.0.0" defer></script>
 
 @endsection
