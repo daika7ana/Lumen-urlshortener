@@ -14,7 +14,7 @@ class UrlController extends Controller
     {
         $original_url = URL::fetch_url($key);
 
-        $original_url = $original_url && !parse_url($original_url, PHP_URL_SCHEME) ? "http://{$original_url}" : $original_url;
+        $original_url = $original_url && !parse_url($original_url, PHP_URL_SCHEME) ? "https://{$original_url}" : $original_url;
 
         return $original_url ? redirect($original_url) : abort(404, 'Invalid URL');
     }
@@ -30,7 +30,7 @@ class UrlController extends Controller
         $parsed_url = parse_url($original_url);
 
         // Verify if URL respects the URL Standards
-        if (false === $parsed_url)
+        if (false === $parsed_url || !array_key_exists('host', $parsed_url))
             return ['error_msg' => 'The provided URL is invalid.'];
 
         if ($request->server("SERVER_NAME") === $parsed_url['host'])
@@ -38,7 +38,8 @@ class UrlController extends Controller
 
         if ($existing_key = URL::fetch_key($original_url))
             return [
-                'url' => url($existing_key),
+                'original_url' => $original_url,
+                'short_url' => url($existing_key),
                 'key' => $existing_key
             ];
 
@@ -52,26 +53,28 @@ class UrlController extends Controller
         ]);
 
         return [
-            'url' => url($key),
+            'original_url' => $original_url,
+            'short_url' => url($key),
             'key' => $key
         ];
     }
 
     // Return the Original URL from the provided ShortURL
     // API Usage
-    public function expand_url(Request $request): array
+    public function expand_url(Request $request)
     {
-        $short_url = $request->url;
-        $domain = $request->server("SERVER_NAME");
+        $short_url = !parse_url($request->url, PHP_URL_SCHEME) ? "https://$request->url" : $request->url;
+        $domain = $request->getHost();
 
-        if (!stripos($short_url, $domain))
+        if (false === stripos($short_url, $domain))
             return ['error_msg' => 'The provided URL does not belong to this domain.'];
 
         $key = $this->grab_url_key($short_url, $domain);
 
         if ($original_url = URL::fetch_url($key)) {
             return [
-                'url' => $original_url,
+                'original_url' => $original_url,
+                'short_url' => $short_url,
                 'key' => $key
             ];
         } else {
@@ -88,7 +91,7 @@ class UrlController extends Controller
         $key = $url_path ? substr($url_path, 1) : null;
 
         // Fallback
-        if (!$key) {
+        if (!$key || false !== strpos($key, '/')) {
             $current_url = "{$domain}/";
             $exploded_url = explode($current_url, $url);
             $key = $exploded_url[1] ?? null;

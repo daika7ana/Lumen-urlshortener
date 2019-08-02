@@ -14,7 +14,7 @@
         <img src="/images/shorten.png" class="mb-4 img-fluid">
 		<h1 class="mb-0">Oops!</h1>
 		<h2 class="mb-4">Something's wrong here...</h2>
-		<h4>Redirecting back to main website in <br /> <span id="countdown">5</span> seconds.</h4>
+		<h4>Warping you back to the homepage in <span id="countdown">5</span>!</h4>
     </div>
 
 @endsection
