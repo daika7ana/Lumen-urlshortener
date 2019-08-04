@@ -9,7 +9,7 @@ jQuery(function($){
             url: '/create_url', 
             data: form.serialize(),
             success: response => {
-                if('url' in response) {
+                if('short_url' in response) {
                     responseDiv.html('<div style="display:flex;"><input id="shorturl" class="form-control" value="'+ response.short_url +'" readonly><button type="button" class="btn btn-dark clipboardBtn" data-clipboard-target="#shorturl">Copy</button></div>').fadeIn(250);
                     new ClipboardJS('.clipboardBtn');
                 } else {

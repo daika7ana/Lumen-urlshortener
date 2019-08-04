@@ -33,6 +33,6 @@
 
 @section('footer-scripts')
 
-	<script type="text/javascript" src="/js/custom.min.js?v=1.0.1" defer></script>
+	<script type="text/javascript" src="/js/custom.min.js?v=1.0.2" defer></script>
 
 @endsection
