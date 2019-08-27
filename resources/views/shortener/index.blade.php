@@ -2,9 +2,9 @@
 
 @section('header') 
 
-    <link rel="preload" href="/css/custom.min.css?v=1.0.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="/css/custom.min.css?v=1.0.0"> <!-- Thank you Firefox -->
-
+    <link rel="preload" href="{{ url('css/app.css') }}?v=1.0.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="{{ url('css/app.css') }}?v=1.0.0"> <!-- Thank you Firefox -->
+    
 @endsection
 
 @section('content')
@@ -33,6 +33,6 @@
 
 @section('footer-scripts')
 
-	<script type="text/javascript" src="/js/custom.min.js?v=1.0.2" defer></script>
+	<script type="text/javascript" src="{{ url('js/app.js') }}" defer></script>
 
 @endsection
