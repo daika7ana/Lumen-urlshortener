@@ -1,0 +1,89 @@
+html,
+body {
+	height: 100%;
+}
+
+body {
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
+	-ms-flex-align: center;
+	-ms-flex-pack: center;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #f5f5f5;
+}
+
+#initForm {
+	width: 100%;
+	max-width: 500px;
+	padding: 15px;
+	margin: 0 auto;
+	margin-top: -10%;
+}
+
+#initForm .form-control {
+	position: relative;
+	box-sizing: border-box;
+	height: auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+#initForm .form-control:focus {
+	z-index: 2;
+	outline: none;
+}
+
+.clipboardBtn {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+#shorturl {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+#shorturl:focus {
+	border-color: #ced4da;
+	box-shadow: unset;
+}
+
+.additionalInfo {
+    position: absolute;
+    bottom: 15px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+#ajax-response {
+	min-height: 46px;
+}
+
+#ajax-response .h3 {
+	line-height: unset;
+	margin-bottom: 0;
+}
+
+.limit-height {
+	height: 46px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s ease-in;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+@media only screen and (max-width: 800px) {
+	#initForm {
+		margin-top: -30%;
+	}
+}
