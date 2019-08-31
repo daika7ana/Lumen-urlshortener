@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActivityLog extends Model
 {
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $fillable = ['url_id', 'method', 'response', 'ip_address', 'created_at'];
+    protected $fillable = ['url_id', 'method', 'response', 'ip_address', 'created_at'];
     protected $dates = ['created_at'];
 
     // Return URL object
@@ -20,6 +20,6 @@ class ActivityLog extends Model
     // Search though response json column
     public static function search_response($index, $value)
     {
-        return self::where('response->'.$index, $value)->get();
+        return self::where('response->' . $index, $value)->get();
     }
 }

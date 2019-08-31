@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\ActivityLog;
-use App\Url as URL;
 use Carbon\Carbon;
+use App\Url as URL;
+use App\ActivityLog;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class UrlController extends Controller
 {
     // Redirect the user to his Original URL from the provided ShortURL
-    public function redirect_url(String $key, Request $request)
+    public function redirect_url(String $key, Request $request): RedirectResponse
     {
         $url_object = URL::fetch_by_key($key);
 
@@ -34,7 +35,7 @@ class UrlController extends Controller
     // If it is, return the ShortURL and Associated key
     // If not, create and return a new ShortURL
     // API and Frontend Usage
-    public function create_url(Request $request)
+    public function create_url(Request $request): Array
     {
         // Original URL provided by the user
         $original_url = $request->url;
@@ -71,7 +72,7 @@ class UrlController extends Controller
 
     // Return the Original URL from the provided ShortURL
     // API Usage
-    public function expand_url(Request $request)
+    public function expand_url(Request $request): Array
     {
         $short_url = !parse_url($request->url, PHP_URL_SCHEME) ? "https://$request->url" : $request->url;
         $domain = $request->getHost();

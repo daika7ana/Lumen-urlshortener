@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Url extends Model
 {
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $fillable = ['url', 'key', 'created_at'];
+    protected $fillable = ['url', 'key', 'created_at'];
     protected $dates = ['created_at'];
 
     // Return logs for the selected URL
@@ -17,7 +17,7 @@ class Url extends Model
         return $this->hasMany(ActivityLog::class);
     }
 
-	// Check for the key, return original URL or null
+    // Check for the key, return original URL or null
     public static function fetch_by_key($key): ?self
     {
         return self::where('key', $key)->first();
