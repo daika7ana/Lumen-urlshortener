@@ -32,6 +32,6 @@ class CreateUrldata extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('urls');
     }
 }
