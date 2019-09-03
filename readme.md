@@ -4,8 +4,10 @@ The codebase for my open source project https://sqiz.me/, which is an URL Shorte
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Sqiz.me, please send an e-mail to Dan-Radu Pana at danradu.pana@gmail.com. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability in my code or in any of the packages that I use in this project, please email me at danradu.pana@gmail.com. All security vulnerabilities will be promptly addressed.
 
 ## License
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+GNU General Public License v3.0
+
+See COPYING to see the full text.

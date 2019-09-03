@@ -8,7 +8,7 @@
                     <input id="shorturl" class="form-control" v-bind:value="response.short_url" readonly />
                     <button type="button" class="btn btn-dark clipboardBtn" data-clipboard-target="#shorturl">Copy</button>
                 </div>
-                <h3 class="h3 font-weight-normal" v-if="'error_msg' in response">{{ response.error_msg }}</h3>
+                <h3 class="h3 font-weight-normal limit-height" v-if="'error_msg' in response">{{ response.error_msg }}</h3>
             </div>
 
             <div v-if="preloader" class="mb-4" key="preloader">

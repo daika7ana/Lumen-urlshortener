@@ -71,6 +71,7 @@ body {
 
 .limit-height {
 	height: 46px;
+	line-height: 46px;
 }
 
 .fade-enter-active, .fade-leave-active {
