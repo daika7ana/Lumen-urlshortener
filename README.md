@@ -10,4 +10,4 @@ If you discover a security vulnerability in my code or in any of the packages th
 
 GNU General Public License v3.0
 
-See COPYING to see the full text.
+See [COPYING](COPYING) to see the full text.
