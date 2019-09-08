@@ -17,13 +17,13 @@ class Url extends Model
         return $this->hasMany(ActivityLog::class);
     }
 
-    // Check for the key, return original URL or null
+    // URL fetch by key
     public static function fetch_by_key($key): ?self
     {
         return self::where('key', $key)->first();
     }
 
-    // Lookup the URL provided, return the key or null
+    // URL fetch by long URL
     public static function fetch_by_url($url): ?self
     {
         return self::where('url', $url)->first();
@@ -35,6 +35,6 @@ class Url extends Model
         $key = str_random($length);
 
         return URL::where('key', $key)->count() ?
-            $this->generate_unique_key() : $key;
+            self::generate_unique_key() : $key;
     }
 }

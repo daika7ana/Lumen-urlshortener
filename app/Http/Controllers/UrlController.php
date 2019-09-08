@@ -120,7 +120,7 @@ class UrlController extends Controller
         }
     }
 
-    // Helper fn
+    // Helper function
     // Strip the domain from the provided Short URL
     // to only obtain the key
     // Includes a fallback method
