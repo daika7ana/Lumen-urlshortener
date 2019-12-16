@@ -17,7 +17,7 @@
     </div>
 
     <div class="additionalInfo">
-        Open Source Project repository found on <a href="https://github.com/daika7ana/lumen-urlshortener" target="_blank"> GitHub</a>.
+        Open Source Project repository found on <a href="https://github.com/daika7ana/lumen-urlshortener" target="_blank">GitHub</a>.
     </div>
 
 @endsection
@@ -30,6 +30,6 @@
 
 @section('footer-scripts')
 
-	<script type="text/javascript" src="{{ url('js/app.js?v=1.0.2') }}" defer></script>
+	<script type="text/javascript" src="{{ url('js/app.js?v=1.0.4') }}" defer></script>
 
 @endsection

@@ -25,12 +25,12 @@
   "homepage": "https://github.com/daika7ana/lumen-urlshortener#readme",
   "devDependencies": {
     "axios": "^0.19.0",
-    "cross-env": "^5.2.0",
-    "laravel-mix": "^4.1.2",
-    "resolve-url-loader": "^3.1.0",
-    "sass": "^1.22.10",
-    "sass-loader": "^7.3.1",
-    "vue": "^2.6.10",
-    "vue-template-compiler": "^2.6.10"
+    "cross-env": "^6.0.3",
+    "laravel-mix": "^5.0.0",
+    "resolve-url-loader": "^3.1.1",
+    "sass": "^1.23.7",
+    "sass-loader": "^8.0.0",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
   }
 }
