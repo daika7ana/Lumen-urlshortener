@@ -16,7 +16,9 @@ class UrlController extends Controller
         $url_object = URL::fetch_by_key($key);
 
         $original_url = optional($url_object)->url;
-        $original_url = $original_url && !parse_url($original_url, PHP_URL_SCHEME) ? "https://{$original_url}" : $original_url;
+        $original_url = ($original_url && !parse_url($original_url, PHP_URL_SCHEME))
+            ? "https://{$original_url}"
+            : $original_url;
 
         if ($original_url) {
             $response = array(
@@ -35,7 +37,7 @@ class UrlController extends Controller
     // If it is, return the ShortURL and Associated key
     // If not, create and return a new ShortURL
     // API and Frontend Usage
-    public function create_url(Request $request): Array
+    public function create_url(Request $request): array
     {
         // Original URL provided by the user
         $original_url = $request->url;
@@ -43,10 +45,14 @@ class UrlController extends Controller
 
         // Verify if URL respects the URL Standards
         if (false === $parsed_url || !array_key_exists('host', $parsed_url))
-            return $this->handle_response(__FUNCTION__, array('error_msg' => 'The provided URL is invalid.'), null, $request);
+            return $this->handle_response(__FUNCTION__, array(
+                'error_msg' => 'The provided URL is invalid.'
+            ), null, $request);
 
         if ($request->server("SERVER_NAME") === $parsed_url['host'])
-            return $this->handle_response(__FUNCTION__, array('error_msg' => 'This URL is already shortened.'), null, $request);
+            return $this->handle_response(__FUNCTION__, array(
+                'error_msg' => 'This URL is from this domain or already shortened.'
+            ), null, $request);
 
         if (($url_object = URL::fetch_by_url($original_url)) && ($existing_key = $url_object->key))
             return $this->handle_response(__FUNCTION__, array(
@@ -57,6 +63,7 @@ class UrlController extends Controller
 
         // Generate a unique key for the URL
         $new_key = URL::generate_unique_key();
+
         $url_object = URL::create([
             'url'          => $original_url,
             'key'          => $new_key,
@@ -72,25 +79,32 @@ class UrlController extends Controller
 
     // Return the Original URL from the provided ShortURL
     // API Usage
-    public function expand_url(Request $request): Array
+    public function expand_url(Request $request): array
     {
-        $short_url = !parse_url($request->url, PHP_URL_SCHEME) ? "https://$request->url" : $request->url;
+        $short_url = !parse_url($request->url, PHP_URL_SCHEME)
+            ? "https://$request->url"
+            : $request->url;
+
         $domain = $request->getHost();
 
         if (false === stripos($short_url, $domain))
-            return $this->handle_response(__FUNCTION__, array('error_msg' => 'The provided URL does not belong to this domain.'), null, $request);
+            return $this->handle_response(__FUNCTION__, array(
+                'error_msg' => 'The provided URL does not belong to this domain.'
+            ), null, $request);
 
         $key = $this->grab_url_key($short_url, $domain);
+        $url_object = URL::fetch_by_key($key);
 
-        if (($url_object = URL::fetch_by_key($key)) && ($original_url = $url_object->url)) {
+        if (empty($url_object))
             return $this->handle_response(__FUNCTION__, array(
-                'original_url' => $original_url,
-                'short_url' => url($short_url),
-                'key' => $key
-            ), $url_object, $request);
-        } else {
-            return $this->handle_response(__FUNCTION__, array('error_msg' => 'The provided key was not found.'), null, $request);
-        }
+                'error_msg' => 'The provided key was not found.'
+            ), null, $request);
+
+        return $this->handle_response(__FUNCTION__, array(
+            'original_url' => $url_object->url,
+            'short_url' => url($short_url),
+            'key' => $key
+        ), $url_object, $request);
     }
 
     // Log the response
@@ -109,7 +123,9 @@ class UrlController extends Controller
         // Handle returns
         switch ($function_name) {
             case 'redirect_url':
-                return array_key_exists('original_url', $response) ? redirect($response['original_url']) : abort(404, $response['error_msg']);
+                return array_key_exists('original_url', $response)
+                    ? redirect('/')
+                    : abort(404, $response['error_msg']);
 
             case 'create_url':
             case 'expand_url':
@@ -130,7 +146,7 @@ class UrlController extends Controller
         $key = $url_path ? substr($url_path, 1) : null;
 
         // Fallback
-        if (!$key || false !== strpos($key, '/')) {
+        if (empty($key) || false !== strpos($key, '/')) {
             $current_url = "{$domain}/";
             $exploded_url = explode($current_url, $url);
             $key = $exploded_url[1] ?? null;

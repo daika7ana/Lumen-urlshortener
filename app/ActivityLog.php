@@ -18,8 +18,8 @@ class ActivityLog extends Model
     }
 
     // Search though response json column
-    public static function search_response($index, $value)
+    public static function withResponse($jsonIndex, $jsonValue)
     {
-        return self::where('response->' . $index, $value)->get();
+        return self::where('response->' . $jsonIndex, $jsonValue)->get();
     }
 }

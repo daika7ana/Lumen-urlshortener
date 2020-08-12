@@ -8,9 +8,9 @@
     <link rel="icon" type="image/png" href="/images/favicon.png">
     
     <!-- Bootstrap Core Css -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="preload" href="{{ url('css/app.css') }}?v=1.0.5" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="{{ url('css/app.css') }}?v=1.0.5"> <!-- Thank you Firefox -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="preload" href="{{ url('css/app.css') }}?v=1.0.6" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="{{ url('css/app.css') }}?v=1.0.6"> <!-- Thank you Firefox -->
 
     @yield('header')
 
