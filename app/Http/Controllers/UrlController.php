@@ -51,7 +51,7 @@ class UrlController extends Controller
 
         if ($request->server("SERVER_NAME") === $parsed_url['host'])
             return $this->handle_response(__FUNCTION__, array(
-                'error_msg' => 'This URL is from this domain or already shortened.'
+                'error_msg' => 'This URL is from this domain.'
             ), null, $request);
 
         if (($url_object = URL::fetch_by_url($original_url)) && ($existing_key = $url_object->key))
@@ -124,7 +124,7 @@ class UrlController extends Controller
         switch ($function_name) {
             case 'redirect_url':
                 return array_key_exists('original_url', $response)
-                    ? redirect('/')
+                    ? redirect($response['original_url'])
                     : abort(404, $response['error_msg']);
 
             case 'create_url':
