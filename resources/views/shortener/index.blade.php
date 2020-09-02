@@ -30,6 +30,6 @@
 
 @section('footer-scripts')
 
-	<script type="text/javascript" src="{{ url('js/app.js?v=1.0.6') }}" defer></script>
+	<script type="text/javascript" src="{{ url('js/app.js?v=1.0.7') }}" defer></script>
 
 @endsection

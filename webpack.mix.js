@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +11,9 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js([ 'resources/assets/js/app.js' ], 'public/js/app.js');
-
-mix.styles([ 'resources/assets/css/app.css' ], 'public/css/app.css');
+mix.js(['resources/assets/js/app.js'], 'public/js/app.js')
+    .styles(['resources/assets/css/app.css'], 'public/css/app.css')
+    .autoload({
+        lodash: ["_"],
+        axios: ["axios"]
+    })
