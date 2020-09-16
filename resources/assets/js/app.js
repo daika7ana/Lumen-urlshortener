@@ -1,8 +1,10 @@
 window.Vue = require('vue');
-window.axios = require('axios');
 
-Vue.component('shorten-form', require('../components/ShortenForm.vue').default);
+import ShortenForm from '../components/ShortenForm.vue';
 
-const form = new Vue({
-    el: '#initForm'
+new Vue({
+    el: '#initForm',
+    components: {
+        ShortenForm,
+    },
 });

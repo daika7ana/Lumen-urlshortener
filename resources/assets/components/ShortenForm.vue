@@ -12,7 +12,7 @@
     <transition name="fade" mode="out-in">
       <div v-if="responseLength" class="mb-3" key="loaded">
         <div class="d-flex" v-if="'short_url' in response">
-          <input id="shorturl" class="form-control" v-bind:value="response.short_url" readonly />
+          <input id="shorturl" class="form-control" :value="response.short_url" readonly />
           <button
             type="button"
             class="btn btn-dark clipboardBtn"

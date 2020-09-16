@@ -9,8 +9,8 @@
     
     <!-- Bootstrap Core Css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="preload" href="{{ url('css/app.css') }}?v=1.0.7" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="{{ url('css/app.css') }}?v=1.0.7"> <!-- Thank you Firefox -->
+    <link rel="preload" href="{{ url('css/app.css') }}?v=1.1" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="{{ url('css/app.css') }}?v=1.1"> <!-- Thank you Firefox -->
 
     @yield('header')
 

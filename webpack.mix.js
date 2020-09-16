@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js(['resources/assets/js/app.js'], 'public/js/app.js')
     .styles(['resources/assets/css/app.css'], 'public/css/app.css')
+    .extract(['vue'])
     .autoload({
-        lodash: ["_"],
         axios: ["axios"]
     })
