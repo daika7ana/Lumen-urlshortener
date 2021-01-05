@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/daika7ana/lumen-urlshortener#readme",
   "devDependencies": {
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "cross-env": "^7.0.2",
     "laravel-mix": "^5.0.7",
     "resolve-url-loader": "^3.1.2",
