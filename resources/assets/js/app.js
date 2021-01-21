@@ -1,5 +1,4 @@
-window.Vue = require('vue');
-
+import Vue from 'vue';
 import ShortenForm from '../components/ShortenForm.vue';
 
 new Vue({
