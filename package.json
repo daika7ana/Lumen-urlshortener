@@ -29,14 +29,14 @@
   "devDependencies": {
     "axios": "^0.21.1",
     "cross-env": "^7.0.3",
-    "laravel-mix": "^6.0.19",
+    "laravel-mix": "^6.0.25",
     "node-forge": "^0.10.0",
-    "postcss": "^8.3.0",
+    "postcss": "^8.3.5",
     "resolve-url-loader": "^4.0.0",
     "sass": "^1.32.12",
-    "sass-loader": "^11.0.1",
-    "vue": "^2.6.12",
+    "sass-loader": "^12.1.0",
+    "vue": "^2.6.14",
     "vue-loader": "^15.9.7",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.14"
   }
 }
