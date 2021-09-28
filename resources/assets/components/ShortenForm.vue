@@ -1,5 +1,5 @@
 <template>
-  <form id="shortenForm" v-on:submit.prevent="submit">
+  <form id="shortenForm" @submit.prevent="submit">
     <input
       type="url"
       v-model="url"
@@ -12,20 +12,29 @@
     <transition name="fade" mode="out-in">
       <div v-if="responseLength" class="mb-3" key="loaded">
         <div class="d-flex" v-if="'short_url' in response">
-          <input id="shorturl" class="form-control" :value="response.short_url" readonly />
+          <input
+            id="shorturl"
+            class="form-control"
+            :value="response.short_url"
+            readonly
+          />
           <button
             type="button"
             class="btn btn-dark clipboardBtn"
             data-clipboard-target="#shorturl"
-          >Copy</button>
+          >
+            Copy
+          </button>
         </div>
         <h3
           class="h3 font-weight-normal limit-height"
           v-if="'error_msg' in response"
-        >{{ response.error_msg }}</h3>
+        >
+          {{ response.error_msg }}
+        </h3>
       </div>
 
-      <div v-if="preloader" class="mb-3" key="preloader">
+      <div v-if="preloader" class="mb-3">
         <div class="half-circle-spinner">
           <div class="circle circle-1"></div>
           <div class="circle circle-2"></div>
@@ -33,41 +42,51 @@
       </div>
     </transition>
 
-    <button type="submit" class="btn btn-lg btn-dark btn-block">Go for it!</button>
+    <button type="submit" class="btn btn-lg btn-dark btn-block">
+      Go for it!
+    </button>
   </form>
 </template>
 
 <script>
+import ClipboardJS from "clipboard";
+
 export default {
   data() {
     return {
       preloader: false,
       response: {},
-      url: ""
+      url: "",
     };
   },
   computed: {
-    responseLength: function() {
+    responseLength: function () {
       return Object.keys(this.response).length;
-    }
+    },
   },
   created() {
     new ClipboardJS(".clipboardBtn");
   },
   methods: {
-    submit: function() {
+    submit: function () {
       this.response = {};
       this.preloader = true;
 
       axios
         .post("/create_url", {
-          url: this.url
+          url: this.url,
         })
-        .then(response => {
-          this.response = response.data;
+        .then(({ data }) => {
+          this.response = data;
+          this.preloader = false;
+        })
+        .catch(() => {
+          this.response = {
+            error_msg: "Something went wrong! Please try again...",
+          };
           this.preloader = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>
