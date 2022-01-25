@@ -34,7 +34,7 @@
         </h3>
       </div>
 
-      <div v-if="preloader" class="mb-3">
+      <div v-if="preloader" class="mb-3" key="loading">
         <div class="half-circle-spinner">
           <div class="circle circle-1"></div>
           <div class="circle circle-2"></div>
