@@ -20,8 +20,8 @@
 
 @section('footer-scripts')
 
-    <script type="text/javascript" src="{{ url('js/manifest.js?v=1.1') }}" defer></script>
-    <script type="text/javascript" src="{{ url('js/vendor.js?v=1.1') }}" defer></script>
-    <script type="text/javascript" src="{{ url('js/app.js?v=1.1') }}" defer></script>
+    <script type="text/javascript" src="{{ url('js/manifest.js?v=1.2') }}" defer></script>
+    <script type="text/javascript" src="{{ url('js/vendor.js?v=1.2') }}" defer></script>
+    <script type="text/javascript" src="{{ url('js/app.js?v=1.2') }}" defer></script>
 
 @endsection

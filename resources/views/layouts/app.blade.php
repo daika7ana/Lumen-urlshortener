@@ -9,7 +9,7 @@
 
     <!-- Bootstrap Core Css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="preload" href="{{ url('css/app.css') }}?v=1.1" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url('css/app.css?v=1.2') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
     @yield('header')
 
