@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import ClipboardJS from "clipboard";
 
 export default {
