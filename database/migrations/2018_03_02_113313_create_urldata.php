@@ -20,7 +20,7 @@ class CreateUrldata extends Migration
             $table->dateTime('created_at');
 
             // Indexs
-            $table->unique([ DB::raw('url(500)') ]);
+            $table->unique('url');
             $table->unique('key');
         });
     }
